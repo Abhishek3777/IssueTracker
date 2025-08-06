@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 
-const Dashboard = ({ summary, loading }) => {
+const Dashboard = ({ summary, loading, onFilterChange }) => {
 
 
 
@@ -18,7 +18,7 @@ const Dashboard = ({ summary, loading }) => {
                 </div>
             ) : (
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-3" onClick={() => onFilterChange('')} style={{ cursor: 'pointer' }}>
                         <div className="card text-white bg-primary mb-3">
                             <div className="card-body">
                                 <h5 className="card-title">Total</h5>
@@ -27,7 +27,7 @@ const Dashboard = ({ summary, loading }) => {
                         </div>
                     </div>
 
-                    <div className="col-md-3">
+                    <div className="col-md-3" onClick={() => onFilterChange('Open')} style={{ cursor: 'pointer' }}>
                         <div className="card text-white bg-success mb-3">
                             <div className="card-body">
                                 <h5 className="card-title">Open</h5>
@@ -36,7 +36,7 @@ const Dashboard = ({ summary, loading }) => {
                         </div>
                     </div>
 
-                    <div className="col-md-3">
+                    <div className="col-md-3" onClick={() => onFilterChange('In Progress')} style={{ cursor: 'pointer' }}>
                         <div className="card text-white bg-warning mb-3">
                             <div className="card-body">
                                 <h5 className="card-title">In Progress</h5>
@@ -45,7 +45,7 @@ const Dashboard = ({ summary, loading }) => {
                         </div>
                     </div>
 
-                    <div className="col-md-3">
+                    <div className="col-md-3" onClick={() => onFilterChange('Closed')} style={{ cursor: 'pointer' }}>
                         <div className="card text-white bg-danger mb-3">
                             <div className="card-body">
                                 <h5 className="card-title">Closed</h5>

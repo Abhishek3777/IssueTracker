@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { getAuthHeader } from './api/authHeader';
 
 const CreateIssueForm = () => {
     const navigate = useNavigate();
@@ -12,7 +13,6 @@ const CreateIssueForm = () => {
         title: '',
         description: '',
         assignee: '',
-        dueDate: '',
         priority: 'Low',
         status: 'Open',
         type: 'Bug',
@@ -30,12 +30,12 @@ const CreateIssueForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/issues', formData);
+            const response = await axios.post('http://localhost:8000/issues', formData, { headers: getAuthHeader() });
             const createdIssue = response.data;
             toast.success(`Ticket ${createdIssue._id} created successfully!`);
             navigate('/');
         } catch (err) {
-            console.error('POST failed:', err);
+            console.error('POST failed:', err.message);
             toast.error("Failed to create issue");
         }
     };
@@ -45,7 +45,7 @@ const CreateIssueForm = () => {
         <div className="container mt-4">
             <h3>Create New Issue</h3>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <label className="form-label">Issue ID</label>
                     <input
                         type="text"
@@ -55,7 +55,7 @@ const CreateIssueForm = () => {
                         onChange={handleChange}
                         required
                     />
-                </div>
+                </div> */}
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     <input
@@ -77,29 +77,10 @@ const CreateIssueForm = () => {
                         onChange={handleChange}
                     ></textarea>
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Assignee</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="assignee"
-                        value={formData.assignee}
-                        onChange={handleChange}
-                    />
-                </div>
+
                 {/* due date start */}
 
-                <div className="mb-3">
-                    <label className="form-label">Due Date</label>
-                    <input
-                        type="date"
-                        className="form-control"
-                        name="dueDate"
-                        value={formData.dueDate}
-                        min={new Date().toISOString().split("T")[0]}
-                        onChange={handleChange}
-                    />
-                </div>
+
                 {/* // due date end */}
                 <div className="row">
                     <div className="col">
@@ -115,7 +96,7 @@ const CreateIssueForm = () => {
                             <option>High</option>
                         </select>
                     </div>
-                    <div className="col">
+                    {/* <div className="col">
                         <label className="form-label">Status</label>
                         <select
                             className="form-select"
@@ -127,7 +108,7 @@ const CreateIssueForm = () => {
                             <option>Closed</option>
                             <option>In Progress</option>
                         </select>
-                    </div>
+                    </div> */}
                     <div className="col">
                         <label className="form-label">Type</label>
                         <select

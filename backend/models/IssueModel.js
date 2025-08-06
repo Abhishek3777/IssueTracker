@@ -4,13 +4,14 @@ const issueSchema = new mongoose.Schema({
     issueId: String,
     title: String,
     description: String,
-    assignee: String,
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     priority: {
         type: String,
         enum: ['Low', 'Medium', 'High']
     },
     status: {
-        type: String, enum: ['Open', 'Closed', 'In Progress'],
+        type: String, enum: ['Open', 'In Progress', 'Resolved', 'UnResolved', 'Closed'],
         default: 'Open',
         required: true
     },
