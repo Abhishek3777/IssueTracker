@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Dashboard from './components/Dashboard';
 import { getAuthHeader } from './api/authHeader';
+import './css/IssueTable.css'
 
 const IssueTable = ({ issues,
     loading,
@@ -119,14 +120,15 @@ const IssueTable = ({ issues,
                             <th>Issue ID</th>
                             <th>Title</th>
                             <th>Description</th>
-                            <th>Assignee</th>
+                            <th className='narrow-column'>Assignee</th>
                             <th>Priority</th>
                             <th>Status</th>
                             <th>Type</th>
                             <th>Created Date</th>
-                            <th>Minutes Open</th>
+                            <th>Minutes Open </th>
                             <th>Due Date</th>
                             <th>Comments</th>
+                            <th>Edit</th>
                             {/* <th>Delete</th> */}
                         </tr>
                     </thead>
@@ -150,7 +152,7 @@ const IssueTable = ({ issues,
                                         <td>{issue.title}</td>
                                         <td>{issue.description}</td>
 
-                                        <td>
+                                        <td className='narrow-column'>
                                             {issue.assignedTo ? (
                                                 // if worker already assigned
 
@@ -248,14 +250,14 @@ const IssueTable = ({ issues,
                                         </td>
                                         <td>{issue.comments || ''}</td>
 
-                                        {/* <td>
+                                        <td>
                                             <button
-                                                className="btn btn-sm btn-danger"
-                                                onClick={() => handleDelete(issue._id)}
+                                                className="btn btn-sm btn-success"
+                                                onClick={() => navigate(`/${issue._id}/edit`)}
                                             >
-                                                Delete
+                                                Edit
                                             </button>
-                                        </td> */}
+                                        </td>
                                     </tr>
                                 );
                             })

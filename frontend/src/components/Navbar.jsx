@@ -1,13 +1,21 @@
 // src/components/Navbar.jsx
 import React from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import LiveClock from './LiveClock';
 
 
 const Navbar = () => {
 
   const navigate = useNavigate();
   const currUser = JSON.parse(localStorage.getItem("user"));
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    document.body.classList.toggle("dark-mode");
+    setDarkMode(!darkMode);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -30,7 +38,15 @@ const Navbar = () => {
             </Link>}
 
           </li>
-          
+          <li className="nav-item d-flex align-items-center px-2">
+            <LiveClock />
+          </li>
+          {/* dark mode setup  */}
+          <button onClick={toggleDarkMode} className="btn btn-outline-secondary ms-auto">
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
+          {/* dark mode setup end */}
+
           {/* profie section start */}
 
           <li className="nav-item d-flex align-items-center text-white me-3">

@@ -11,6 +11,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import PrivateRoute from './components/PrivateRoute'
 import DashboardPage from './components/DashboardPage'
+import Edit from './Edit'
 
 function App() {
 
@@ -28,13 +29,20 @@ function App() {
           {/* Private Routes */}
           <Route
             index element={<PrivateRoute>
-              <DashboardPage/>
+              <DashboardPage />
             </PrivateRoute>}
           />
 
           <Route path="/create" element={<PrivateRoute>
             <CreateIssueForm />
           </PrivateRoute>}
+
+          />
+          <Route path='/:id/edit' element={
+            <PrivateRoute>
+              <Edit />
+            </PrivateRoute>
+          }
 
           />
 

@@ -13,7 +13,7 @@ const generateIssueId = async () => {
 // create router
 exports.createIssue = async (req, res) => {
     const user = req.user;
-   
+
     try {
         const issueId = await generateIssueId();
 
@@ -22,7 +22,7 @@ exports.createIssue = async (req, res) => {
             ...req.body,
             createdBy: user.userId,
         });
-        
+
 
         const saved = await newIssue.save();
         res.status(201).json(saved);
@@ -160,11 +160,17 @@ exports.updateStatus = async (req, res) => {
                 return res.status(403).json({ message: 'Only assigned worker can resolve the issue' });
             }
         }
-        console.log(issue.createdBy);
+
         if ((status === 'Closed' || status === 'UnResolved') && (!issue.createdBy || !issue.createdBy.equals(new mongoose.Types.ObjectId(user.userId)))) {
             return res.status(403).json({ message: 'Only issue creator can close or unresolve the issue' });
         }
-        issue.status = status;
+        if (status === 'UnResolved') {
+            issue.status = 'In Progress';
+        }
+        else {
+            issue.status = status;
+        }
+
 
         // if in progress set due date for that issue automatically
         if (issue.status === 'In Progress' && !issue.dueDate) {
@@ -208,3 +214,38 @@ exports.assignWork = async (req, res) => {
         return res.status(500).json({ message: 'Server error' });
     }
 };
+
+// edit issues
+exports.editIssues = async (req, res) => {
+    const { id } = req.params;
+    const user = req.user;
+    const { title, description, priority, type } = req.body;
+    try {
+
+        const issue = await Issue.findById(id);
+        if (!issue)
+            return res.status(404).json({ message: 'Issue does not exist!' });
+
+        // check if issue sent by creator id
+        if ((!issue.createdBy || !issue.createdBy.equals(new mongoose.Types.ObjectId(user.userId)))) {
+            return res.status(403).json({ message: 'Only issue creator can update the issue' });
+        }
+        // edit only allowed fields
+        if (title !== undefined) issue.title = title;
+        if (description !== undefined) issue.description = description;
+        if (priority !== undefined) issue.priority = priority;
+        if (type !== undefined) issue.type = type;
+
+
+        await issue.save();
+
+        return res.status(200).json({
+            updatedIssue: issue,
+            'message': 'Issue updated successfully'
+        });
+    }
+    catch (err) {
+        console.log(err.message);
+        return res.status(500).json({ message: 'Server error' });
+    }
+}
