@@ -120,7 +120,7 @@ const IssueTable = ({ issues,
                             <th>Issue ID</th>
                             <th>Title</th>
                             <th>Description</th>
-                            <th className='narrow-column'>Assignee</th>
+                            <th>Assignee</th>
                             <th>Priority</th>
                             <th>Status</th>
                             <th>Type</th>
@@ -152,7 +152,7 @@ const IssueTable = ({ issues,
                                         <td>{issue.title}</td>
                                         <td>{issue.description}</td>
 
-                                        <td className='narrow-column'>
+                                        <td >
                                             {issue.assignedTo ? (
                                                 // if worker already assigned
 

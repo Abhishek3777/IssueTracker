@@ -6,11 +6,11 @@ import { toast } from 'react-toastify';
 import LiveClock from './LiveClock';
 
 
-const Navbar = () => {
+const Navbar = ({ currUser, setCurrUser }) => {
 
   const navigate = useNavigate();
-  const currUser = JSON.parse(localStorage.getItem("user"));
   const [darkMode, setDarkMode] = useState(false);
+
 
   const toggleDarkMode = () => {
     document.body.classList.toggle("dark-mode");
@@ -18,7 +18,8 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setCurrUser(null);
     navigate("/login");
     toast.success("Logged out");
   }

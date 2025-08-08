@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Login = () => {
+const Login = ({ setCurrUser }) => {
     const navigate = useNavigate();
     const [data, setData] = useState({
         email: '',
@@ -21,9 +21,11 @@ const Login = () => {
             const { token, user } = res.data;
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));
+            setCurrUser(user);
             console.log('Login successful:', res.data);
             toast.success('Login successful!');
             navigate("/");
+
         } catch (err) {
             console.log('Login error:', err.message);
             toast.error("Error Loggin in!");

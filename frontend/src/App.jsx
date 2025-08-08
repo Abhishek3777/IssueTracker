@@ -14,17 +14,17 @@ import DashboardPage from './components/DashboardPage'
 import Edit from './Edit'
 
 function App() {
-
+  const [currUser, setCurrUser] = useState(() => JSON.parse(localStorage.getItem("user")));
 
   return (
     <>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-center" autoClose={3000} />
 
       <Routes>
         {/* Public Layout */}
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout currUser = {currUser} setCurrUser={setCurrUser} />}>
           {/* Public Routes */}
-          <Route path='/login' element={<Login />} />
+          <Route path='/login' element={<Login  setCurrUser={setCurrUser} />} />
           <Route path='/register' element={<Register />} />
           {/* Private Routes */}
           <Route
