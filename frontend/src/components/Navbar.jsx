@@ -72,7 +72,7 @@ const Navbar = ({ currUser, setCurrUser }) => {
           {/* profile section end */}
 
           <li className="nav-item">
-            {!localStorage.getItem("token") && <Link to="/register" className="btn btn-warning btn-sm">
+            {!currUser && <Link to="/register" className="btn btn-warning btn-sm">
               Register
             </Link>}
 
