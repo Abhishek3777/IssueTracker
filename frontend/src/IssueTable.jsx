@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import Dashboard from './components/Dashboard';
 import { getAuthHeader } from './api/authHeader';
 import './css/IssueTable.css'
+const api = import.meta.env.VITE_API_URL
 
 const IssueTable = ({ issues,
     loading,
@@ -66,7 +67,7 @@ const IssueTable = ({ issues,
         e.preventDefault();
         try {
             const res = await axios.patch(
-                `http://localhost:8000/issues/${id}/assign`,
+                `${api}/${id}/assign`,
                 { assignee: assignee[id] },
                 { headers: getAuthHeader() }
             );
@@ -78,7 +79,7 @@ const IssueTable = ({ issues,
 
     const getWorkers = async () => {
         try {
-            const res = await axios.get('http://localhost:8000/auth/users?role=worker');
+            const res = await axios.get(`${api}/auth/users?role=worker`);
             setWorkers(res.data.users); // ✅ store workers
 
         } catch (err) {
@@ -90,7 +91,7 @@ const IssueTable = ({ issues,
 
         try {
             console.log("Updating issue:", id);
-            await axios.patch(`http://localhost:8000/issues/${id}/status`, { status: newStatus }, { headers: getAuthHeader() });
+            await axios.patch(`${api}/issues/${id}/status`, { status: newStatus }, { headers: getAuthHeader() });
             refreshIssues();
             toast.success(`Status changed to ${newStatus}`);
         }

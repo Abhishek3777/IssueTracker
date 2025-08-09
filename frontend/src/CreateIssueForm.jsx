@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getAuthHeader } from './api/authHeader';
+const api = import.meta.env.VITE_API_URL
+
 
 const CreateIssueForm = () => {
     const navigate = useNavigate();
@@ -19,7 +21,6 @@ const CreateIssueForm = () => {
     });
 
 
-
     const handleChange = (e) => {
         setFormData((prev) => ({
             ...prev,
@@ -30,7 +31,7 @@ const CreateIssueForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/issues', formData, { headers: getAuthHeader() });
+            const response = await axios.post(`${api}/issues`, formData, { headers: getAuthHeader() });
             const createdIssue = response.data;
             toast.success(`Ticket ${createdIssue._id} created successfully!`);
             navigate('/');
@@ -119,6 +120,7 @@ const CreateIssueForm = () => {
                         >
                             <option>Bug</option>
                             <option>Feature</option>
+                            <option>Task</option>
                         </select>
                     </div>
                 </div>

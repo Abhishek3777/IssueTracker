@@ -3,6 +3,7 @@ import Dashboard from '../components/Dashboard';
 import IssueTable from '../IssueTable'
 import axios from 'axios';
 import { getAuthHeader } from '../api/authHeader';
+const api = import.meta.env.VITE_API_URL
 
 const DashboardPage = () => {
   const [summary, setSummary] = useState({});
@@ -18,7 +19,7 @@ const DashboardPage = () => {
 
   const fetchIssues = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/issues', { headers: getAuthHeader() });
+      const res = await axios.get(`${api}/issues`, { headers: getAuthHeader() });
       setIssues(res.data);
     } catch (err) {
       console.error(err);
@@ -29,7 +30,7 @@ const DashboardPage = () => {
 
   const fetchSummary = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/issues/summary', { headers: getAuthHeader() });
+      const res = await axios.get(`${api}/issues/summary`, { headers: getAuthHeader() });
       setSummary(res.data);
     } catch (err) {
       console.error(err);

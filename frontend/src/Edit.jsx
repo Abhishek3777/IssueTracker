@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { getAuthHeader } from './api/authHeader';
+const api = import.meta.env.VITE_API_URL
 
 const Edit = () => {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Edit = () => {
         e.preventDefault();
         console.log(data);
         try {
-            await axios.patch(`http://localhost:8000/issues/${id}/edit`, data, { headers: getAuthHeader() });
+            await axios.patch(`${api}/issues/${id}/edit`, data, { headers: getAuthHeader() });
             toast.success('Edited issue successfully');
             navigate('/');
         }

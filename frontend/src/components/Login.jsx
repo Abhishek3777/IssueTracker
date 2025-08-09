@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+const api = import.meta.env.VITE_API_URL
 const Login = ({ setCurrUser }) => {
     const navigate = useNavigate();
     const [data, setData] = useState({
@@ -17,9 +17,10 @@ const Login = ({ setCurrUser }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8000/auth/login", data);
+            const res = await axios.post(`${api}/auth/login`, data);
             const { token, user } = res.data;
             localStorage.setItem('token', token);
+            console.log(token);
             localStorage.setItem('user', JSON.stringify(user));
             setCurrUser(user);
             console.log('Login successful:', res.data);
