@@ -173,11 +173,10 @@ const IssueTable = ({ issues,
                                                             return;
                                                         }
 
-                                                        console.log("PATCH to:", `http://localhost:8000/issues/${issue._id}/assign`);
-                                                        console.log("Body:", { workerId: selectedWorkerId });
+
 
                                                         axios
-                                                            .patch(`http://localhost:8000/issues/${issue._id}/assign`, {
+                                                            .patch(`${api}/issues/${issue._id}/assign`, {
                                                                 workerId: selectedWorkerId
                                                             }, { headers: getAuthHeader() })
                                                             .then(() => {
