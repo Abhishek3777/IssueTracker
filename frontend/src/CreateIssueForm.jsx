@@ -18,6 +18,7 @@ const CreateIssueForm = () => {
         priority: 'Low',
         status: 'Open',
         type: 'Bug',
+        comments: ''
     });
 
 
@@ -123,6 +124,16 @@ const CreateIssueForm = () => {
                             <option>Task</option>
                         </select>
                     </div>
+                </div>
+                  <div className="mb-3">
+                    <label className="form-label">Comments</label>
+                    <textarea
+                        className="form-control"
+                        name="comments"
+                        rows="3"
+                        value={formData.comments}
+                        onChange={handleChange}
+                    ></textarea>
                 </div>
                 <button type="submit" className="btn btn-success mt-4">
                     Submit

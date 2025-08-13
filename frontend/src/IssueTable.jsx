@@ -185,7 +185,7 @@ const IssueTable = ({ issues,
                                                             })
                                                             .catch((err) => {
                                                                 toast.error("Assignment failed");
-                                                                console.error(err);
+                                                                console.error(err.message);
                                                             });
                                                     }}
                                                 >
