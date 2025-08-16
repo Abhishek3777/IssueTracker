@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Issue = require("../models/IssueModel");
+const User = require("../models/user")
 const mongoose = require('mongoose')
 // Helper to generate issueId like BG001, BG002 etc.
 const generateIssueId = async () => {
@@ -35,12 +36,29 @@ exports.createIssue = async (req, res) => {
 //get all issues
 
 exports.getAllIssues = async (req, res) => {
+    const user = req.user;
+    console.log(user);
+
     try {
+        const currUser = await User.findById(user._id);
+
+        if (!currUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        
+        if (currUser.role === 'worker') {
+            const issuesForWorker = await Issue.find({ assignedTo: user })
+                .populate("assignedTo", "name email")
+                .sort({ createdDate: -1 });
+
+
+            return res.json(issuesForWorker);
+        }
         const issues = await Issue.find()
             .populate('assignedTo', 'name email') // populate only needed fields
             .sort({ createdDate: -1 });
 
-        res.json(issues);
+        return res.json(issues);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

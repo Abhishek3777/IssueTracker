@@ -149,7 +149,7 @@ const IssueTable = ({ issues,
 
                                 return (
                                     <tr key={issue._id} className={isOverDue ? 'table-danger' : ''}>
-                                        <td>{issue._id}</td>
+                                        <td>{issue._id.slice(0,8)}</td>
                                         <td>{issue.title}</td>
                                         <td>{issue.description}</td>
 

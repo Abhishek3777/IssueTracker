@@ -38,6 +38,7 @@ const Edit = () => {
     return (
         <div className="container mt-4">
             <h3>Edit Issue</h3>
+            <button onClick={() => {navigate('/')}}><i className="bi bi-arrow-left"></i></button>
             <form onSubmit={(e) => handleEdit(e, id)}>
 
 
