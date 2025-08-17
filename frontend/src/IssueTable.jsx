@@ -199,7 +199,7 @@ const IssueTable = ({ issues,
                                                         <option value="">Select a worker</option>
                                                         {workers.map(worker => (
                                                             <option key={worker._id} value={worker._id}>
-                                                                {worker.name} {worker.email}
+                                                                {worker.name} 
                                                             </option>
                                                         ))}
                                                     </select>

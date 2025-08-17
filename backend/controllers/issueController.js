@@ -36,27 +36,32 @@ exports.createIssue = async (req, res) => {
 //get all issues
 
 exports.getAllIssues = async (req, res) => {
-   
+    const user = req.user;
 
     try {
-        
-        
-        // if (currUser.role === 'worker') {
-        //     const issuesForWorker = await Issue.find({ assignedTo: user })
-        //         .populate("assignedTo", "name email")
-        //         .sort({ createdDate: -1 });
+        // worker based issue rendering starts
+        const currUser = await User.findById(user.userId);
+        if (!currUser)
+            return res.status(404).json({ message: 'User does not exist' });
 
-
-        //     return res.json(issuesForWorker);
-        // }
-        const issues = await Issue.find()
-            .populate('assignedTo', 'name email') // populate only needed fields
+    if (currUser.role === 'worker') {
+        const issuesForWorker = await Issue.find({ assignedTo: user.userId })
+            .populate("assignedTo", "name email")
             .sort({ createdDate: -1 });
 
-        return res.json(issues);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+
+        return res.json(issuesForWorker);
     }
+ // worker based issue rendering starts
+ 
+    const issues = await Issue.find()
+        .populate('assignedTo', 'name email') // populate only needed fields
+        .sort({ createdDate: -1 });
+
+    return res.json(issues);
+} catch (err) {
+    res.status(500).json({ error: err.message });
+}
 };
 
 
