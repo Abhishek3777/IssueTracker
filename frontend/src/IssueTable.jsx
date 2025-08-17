@@ -108,12 +108,13 @@ const IssueTable = ({ issues,
             {/* <Dashboard summary={summary} /> */}
 
             <div className="table-responsive">
-                <button
+                {(currUser.role === 'admin' || currUser.role === 'user') &&( <button
                     className="btn btn-primary mb-3"
                     onClick={() => navigate('/create')}
                 >
                     Create New Issue
-                </button>
+                </button>)}
+
 
                 <table className="table table-bordered table-hover align-middle">
                     <thead className="table-dark">
@@ -149,7 +150,7 @@ const IssueTable = ({ issues,
 
                                 return (
                                     <tr key={issue._id} className={isOverDue ? 'table-danger' : ''}>
-                                        <td>{issue._id.slice(0,8)}</td>
+                                        <td>{issue._id.slice(0, 8)}</td>
                                         <td>{issue.title}</td>
                                         <td>{issue.description}</td>
 
@@ -199,7 +200,7 @@ const IssueTable = ({ issues,
                                                         <option value="">Select a worker</option>
                                                         {workers.map(worker => (
                                                             <option key={worker._id} value={worker._id}>
-                                                                {worker.name} 
+                                                                {worker.name}
                                                             </option>
                                                         ))}
                                                     </select>
