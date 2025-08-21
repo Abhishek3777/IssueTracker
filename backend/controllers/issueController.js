@@ -44,24 +44,30 @@ exports.getAllIssues = async (req, res) => {
         if (!currUser)
             return res.status(404).json({ message: 'User does not exist' });
 
-    if (currUser.role === 'worker') {
-        const issuesForWorker = await Issue.find({ assignedTo: user.userId })
+        let filter = {};
+        if (currUser.role == 'worker') {
+            filter = { assignedTo: user.userId };
+        }
+
+        // fetching issues with filter
+        const issues = await Issue.find(filter)
             .populate("assignedTo", "name email")
             .sort({ createdDate: -1 });
 
+        const total = await Issue.countDocuments(filter);
+        const Open = await Issue.countDocuments({ ...filter, status: 'Open' });
+        const inProgress = await Issue.countDocuments({ ...filter, status: 'In Progress' });
+        const closed = await Issue.countDocuments({ ...filter, status: 'Closed' });
 
-        return res.json(issuesForWorker);
+
+        return res.json({
+            issues,
+            stats: { total, Open, inProgress, closed }
+        });
+        
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
- // worker based issue rendering starts
- 
-    const issues = await Issue.find()
-        .populate('assignedTo', 'name email') // populate only needed fields
-        .sort({ createdDate: -1 });
-
-    return res.json(issues);
-} catch (err) {
-    res.status(500).json({ error: err.message });
-}
 };
 
 

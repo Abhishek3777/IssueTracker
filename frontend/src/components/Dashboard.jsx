@@ -31,7 +31,7 @@ const Dashboard = ({ summary, loading, onFilterChange }) => {
                         <div className="card text-white bg-success mb-3">
                             <div className="card-body">
                                 <h5 className="card-title">Open</h5>
-                                <p className="card-text fs-4">{summary.open}</p>
+                                <p className="card-text fs-4">{summary.Open}</p>
                             </div>
                         </div>
                     </div>

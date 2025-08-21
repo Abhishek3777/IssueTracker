@@ -20,7 +20,8 @@ const DashboardPage = () => {
   const fetchIssues = async () => {
     try {
       const res = await axios.get(`${api}/issues`, { headers: getAuthHeader() });
-      setIssues(res.data);
+      setIssues(res.data.issues);
+      setSummary(res.data.stats);
     } catch (err) {
       console.error(err);
     } finally {
