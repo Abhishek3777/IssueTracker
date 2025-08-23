@@ -85,7 +85,7 @@ const Navbar = ({ currUser, setCurrUser }) => {
             </li>
           )}
 
-          {localStorage.getItem('token') && (
+          {currUser && (
             <li className="nav-item">
               <button
                 onClick={handleLogout}
