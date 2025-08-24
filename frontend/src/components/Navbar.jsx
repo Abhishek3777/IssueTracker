@@ -19,7 +19,7 @@ const Navbar = ({ currUser, setCurrUser }) => {
     navigate('/login');
     toast.success('Logged out');
   };
-  console.log(currUser);
+  
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
