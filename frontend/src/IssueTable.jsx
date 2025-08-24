@@ -108,7 +108,8 @@ const IssueTable = ({ issues,
             {/* <Dashboard summary={summary} /> */}
 
             <div className="table-responsive">
-                {(currUser.role === 'admin' || currUser.role === 'user') &&( <button
+                
+                { currUser && (currUser.role === 'admin' || currUser.role === 'user') &&( <button
                     className="btn btn-primary mb-3"
                     onClick={() => navigate('/create')}
                 >
