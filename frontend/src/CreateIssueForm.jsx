@@ -17,7 +17,7 @@ const CreateIssueForm = () => {
         assignee: '',
         priority: 'Low',
         status: 'Open',
-        type: 'Task',
+        type: 'Bug',
         comments: ''
     });
 
@@ -113,15 +113,15 @@ const CreateIssueForm = () => {
                     </div> */}
                     <div className="col">
                         <label className="form-label">Type</label>
-                        <select 
+                        <select
                             className="form-select"
                             name="type"
                             value={formData.type}
                             onChange={handleChange}
                         >
-                            <option>Task</option>
-                            <option>Feature</option>
                             <option>Bug</option>
+                            <option>Feature</option>
+                            <option>Task</option>
                         </select>
                     </div>
                 </div>
