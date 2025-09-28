@@ -15,7 +15,8 @@ const issueSchema = new mongoose.Schema({
         default: 'Open',
         required: true
     },
-    type: { type: String, enum: ['Bug', 'Feature', 'Task'] },
+    type: { type: String, enum: ['Task', 'Feature', 'Bug'],
+     },
     createdDate: {
         type: Date,
         default: Date.now

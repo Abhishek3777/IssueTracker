@@ -39,7 +39,7 @@ const Navbar = ({ currUser, setCurrUser }) => {
 
       <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`}>
         <ul className="navbar-nav ms-auto d-flex flex-column flex-lg-row gap-2">
-          {!localStorage.getItem('token') && (
+          {!localStorage.getItem('token') && currUser (
             <li className="nav-item">
               <Link to="/login" className="btn btn-outline-light btn-sm w-100">
                 Login
@@ -78,7 +78,7 @@ const Navbar = ({ currUser, setCurrUser }) => {
             </li>
           )}
 
-          {!currUser&& (
+          {(
             <li className="nav-item">
               <Link to="/register" className="btn btn-warning btn-sm w-100">
                 Register
