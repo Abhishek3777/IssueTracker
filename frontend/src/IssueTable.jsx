@@ -41,7 +41,7 @@ const IssueTable = ({ issues,
             const lastStart = new Date(issue.lastReopenedAt || issue.createdDate);
             const activeDuration = now - lastStart;
             const totalDuration = (issue.totalOpenDuration || 0) + activeDuration;
-            return Math.floor(totalDuration / (1000 * 60)); // 1 min = 1 simulated day
+            return Math.floor(totalDuration / (1000 * 60 * 60 * 24)); // 1 min = 1 simulated day
         }
     };
 
@@ -128,7 +128,7 @@ const IssueTable = ({ issues,
                             <th>Status</th>
                             <th>Type</th>
                             <th>Created Date</th>
-                            <th>Minutes Open </th>
+                            <th>Days Open </th>
                             <th>Due Date</th>
                             <th>Comments</th>
                             <th>Edit</th>

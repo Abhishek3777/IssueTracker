@@ -17,7 +17,7 @@ const CreateIssueForm = () => {
         assignee: '',
         priority: 'Low',
         status: 'Open',
-        type: 'Bug',
+        type: 'Task',
         comments: ''
     });
 
