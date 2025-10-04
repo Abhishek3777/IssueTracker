@@ -17,7 +17,7 @@ const CreateIssueForm = () => {
         assignee: '',
         priority: 'Low',
         status: 'Open',
-        type: 'Task',
+        type: 'Tasks',
         comments: ''
     });
 
@@ -119,13 +119,14 @@ const CreateIssueForm = () => {
                             value={formData.type}
                             onChange={handleChange}
                         >
-                            <option>Bug</option>
-                            <option>Feature</option>
-                            <option>Task</option>
+                            <option value="Bug">Bug</option>
+                            <option value="Feature">Feature</option>
+                            <option value="Task">Task</option>
+
                         </select>
                     </div>
                 </div>
-                  <div className="mb-3">
+                <div className="mb-3">
                     <label className="form-label">Comments</label>
                     <textarea
                         className="form-control"

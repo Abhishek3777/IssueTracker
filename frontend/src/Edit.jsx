@@ -12,7 +12,7 @@ const Edit = () => {
         title: '',
         description: '',
         priority: 'Low',
-        type: 'Bug',
+        type: 'Task',
     });
 
     const handleChange = (e) => {
@@ -90,6 +90,7 @@ const Edit = () => {
                         >
                             <option>Bug</option>
                             <option>Feature</option>
+                            <option>Task</option>
                         </select>
                     </div>
                 </div>
